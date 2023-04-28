@@ -155,8 +155,8 @@ async function robotMassage(tx,read,delay) {
                theme.setAttribute('href', 'theme/Dark.css')
             }
             if (run == 'lightMode') {
-               localStorage.setItem('theme', 'Light');
-               theme.setAttribute('href', 'theme/Light.css')
+               localStorage.setItem('theme', 'light');
+               theme.setAttribute('href', 'theme/light.css')
             }
             if (run == 'removeHistory') {
                clearHistory(tx);
