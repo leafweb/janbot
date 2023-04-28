@@ -151,8 +151,8 @@ async function robotMassage(tx,read,delay) {
             msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
             var run = wordBrain[x].run;
             if (run == 'darkMode') {
-               localStorage.setItem('theme', 'Dark');
-               theme.setAttribute('href', 'theme/Dark.css')
+               localStorage.setItem('theme', 'dark');
+               theme.setAttribute('href', 'theme/dark.css')
             }
             if (run == 'lightMode') {
                localStorage.setItem('theme', 'light');
