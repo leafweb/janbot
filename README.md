@@ -1,1 +1,1 @@
-# janbot
+# Jan Bot
