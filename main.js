@@ -169,6 +169,8 @@ async function robotMassage(tx,read,delay) {
                   for (y in wordBrain[x].ms) {
                      tx = tx.replace(wordBrain[x].ms[y], '');
                   }
+                  tx = tx.replaceAll('?', '');
+                  tx = tx.replaceAll('؟', '');
                   fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
                      .then(response => response.json())
                      .then(data => {
