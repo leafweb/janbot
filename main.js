@@ -57,7 +57,7 @@ function getTheme(tx) {
       theme.setAttribute('href', 'theme/' + localStorage.getItem('theme') + '.css');
    }
 }
-function removeSpaces(tx){
+function removeSpaces(tx) {
    return tx.replace(/\s/g, '');
 }
 
@@ -65,6 +65,7 @@ getHistory();
 getTheme();
 scroll();
 status();
+loadBrain();
 
 function meMassage(tx) {
    var msDiv = document.createElement("div");
@@ -79,23 +80,23 @@ function meMassage(tx) {
    scroll()
    setHistory();
 }
+
 function robotMassage(tx, read, delay) {
    var msDiv = document.createElement("div");
    var msText = document.createElement("div");
    msDiv.className = "robot-div";
    msText.className = "robot-massage";
    msText.innerHTML = '•••';
-   
+
    fetch('brain.json')
       .then(x => x.json())
-      .then(y => {
-         brain = y;
+      .then(data => {
+         let brain = data;
          let aboutBrain = brain.about;
          let brainNotFound = brain.notFound;
          let wordSum = brain.sum;
          let wordBrain = brain.word;
          let replaceBrine = brain.replace;
-         
          //sum
          function sum2(a, b) {
             var newMs = [];
@@ -147,80 +148,73 @@ function robotMassage(tx, read, delay) {
          for (x in wordSum.sum3) {
             sum3(wordSum.sum3[x].a, wordSum.sum3[x].b, wordSum.sum3[x].c);
          }
-         
          //replace
          for (x in replaceBrine) {
             tx = tx.replaceAll(replaceBrine[x].a, replaceBrine[x].b);
          }
-
-         try {
-            msText.innerHTML = eval(tx);
-         } catch (error) {
-            for (x in wordBrain) {
-               var reGex = new RegExp(wordBrain[x].ms.join("|"));
-               if (reGex.test(removeSpaces(tx.toLowerCase())) === true) {
-                  msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
-                  
-                  //run
-                  var run = wordBrain[x].run;
-                  if (run == 'darkMode') {
-                     setTheme('dark');
-                  }
-                  if (run == 'lightMode') {
-                     setTheme('light');
-                  }
-                  if (run == 'removeHistory') {
-                     clearHistory(tx);
-                  }
-                  if (run == 'menu') {
-                     var delay = 3;
-                  }
-                  if (run == 'wikipedia') {
-                     if (navigator.onLine) {
-                        for (y in wordBrain[x].ms) {
-                           tx = tx.replace(wordBrain[x].ms[y], '');
-                        }
-                        tx = tx.replaceAll('?', '');
-                        tx = tx.replaceAll('؟', '');
-                        fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
-                           .then(response => response.json())
-                           .then(data => {
-                              summary = data.extract;
-                              msText.innerHTML = summary;
-                              if (summary !== undefined) {
-                                 msText.classList.add('wikipedia')
-                              } else {
-                                 msText.innerHTML = 'نمیدانم';
-                              }
-                           }).catch(error => {
-                              console.log(error.name);
-                              msText.innerHTML = '<i class="fa fa-cloud-slash"></i>';
-                           })
-                     } else {
-                        msText.innerHTML = 'من نمیدوانم اطلاعاتی دریافت کنم' + 'br' + 'لطفا به شبکه متصل شویدم'
+         for (x in wordBrain) {
+            var reGex = new RegExp(wordBrain[x].ms.join("|"));
+            if (reGex.test(removeSpaces(tx.toLowerCase())) === true) {
+               msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
+               //run
+               var run = wordBrain[x].run;
+               if (run == 'darkMode') {
+                  setTheme('dark');
+               }
+               if (run == 'lightMode') {
+                  setTheme('light');
+               }
+               if (run == 'removeHistory') {
+                  clearHistory(tx);
+               }
+               if (run == 'menu') {
+                  var delay = 3;
+               }
+               if (run == 'wikipedia') {
+                  if (navigator.onLine) {
+                     for (y in wordBrain[x].ms) {
+                        tx = tx.replace(wordBrain[x].ms[y], '');
                      }
+                     tx = tx.replaceAll('?', '');
+                     tx = tx.replaceAll('؟', '');
+                     fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
+                        .then(response => response.json())
+                        .then(data => {
+                           summary = data.extract;
+                           msText.innerHTML = summary;
+                           if (summary !== undefined) {
+                              msText.classList.add('wikipedia')
+                           } else {
+                              msText.innerHTML = 'نمیدانم';
+                           }
+                        }).catch(error => {
+                           console.log(error.name);
+                           msText.innerHTML = '<i class="fa fa-cloud-slash"></i>';
+                        })
+                  } else {
+                     msText.innerHTML = 'من نمیدوانم اطلاعاتی دریافت کنم' + 'br' + 'لطفا به شبکه متصل شویدم'
                   }
                }
             }
-            if (msText.innerHTML == '•••') {
-               if (navigator.onLine) {
-                  fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
-                     .then(response => response.json())
-                     .then(data => {
-                        summary = data.extract;
-                        msText.innerHTML = summary;
-                        if (summary !== undefined) {
-                           msText.classList.add('wikipedia')
-                        } else {
-                           msText.innerHTML = 'نمیدانم';
-                        }
-                     }).catch(error => {
-                        msText.innerHTML = '<i class="fa fa-wifi-slash"></i>';
-                     })
-               } else {
-                  msText.innerHTML = brainNotFound[Math.floor(Math.random() * brainNotFound.length)] + '<br>';
-                  msText.innerHTML += 'برای اطلاعات بیشتر به شبکه متصل شوید'
-               }
+         }
+         if (msText.innerHTML == '•••') {
+            if (navigator.onLine) {
+               fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
+                  .then(response => response.json())
+                  .then(data => {
+                     summary = data.extract;
+                     msText.innerHTML = summary;
+                     if (summary !== undefined) {
+                        msText.classList.add('wikipedia')
+                     } else {
+                        msText.innerHTML = 'نمیدانم';
+                     }
+                  }).catch(error => {
+                     msText.innerHTML = '<i class="fa fa-wifi-slash"></i>';
+                  })
+            } else {
+               msText.innerHTML = brainNotFound[Math.floor(Math.random() * brainNotFound.length)] + '<br>';
+               msText.innerHTML += 'برای اطلاعات بیشتر به شبکه متصل شوید'
             }
          }
       })
