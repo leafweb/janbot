@@ -65,7 +65,6 @@ getHistory();
 getTheme();
 scroll();
 status();
-loadBrain();
 
 function meMassage(tx) {
    var msDiv = document.createElement("div");
