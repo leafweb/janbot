@@ -24,6 +24,7 @@
 
    --robot-massage-bg: linear-gradient(45deg, hsl(210, 100%, 20%), hsl(180, 100%, 20%));
    --robot-massage-color: #fff;
+   --robot-massage-tag-bg: #0005;
    --robot-massage-border: none;
    --robot-massage-radius: 0 var(--radius) var(--radius) var(--radius);
 

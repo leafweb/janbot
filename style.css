@@ -142,6 +142,24 @@ main {
    overflow-wrap: break-word;
    direction: rtl;
 }
+.robot-massage.wikipedia{
+   padding-top: 30px;
+}
+.robot-massage.wikipedia::after{
+   content: "wikipedia";
+   display: inline-block;
+   position: absolute;
+   top: 0;
+   left: 0;
+   background: var(--robot-massage-tag-bg);
+   color: var(--robot-massage-color);
+   padding: 5px;
+   font-weight: bold;
+   font-family: monospace;
+   border-bottom-right-radius: 10px;
+   font-size: 14px;
+   text-transform: uppercase;
+}
 
 .menu{
    text-align: center;
