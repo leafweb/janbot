@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+   <title>Jon Bot</title>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <link rel="shortcut icon" type="image/x-icon" href="image/icon.svg">
+   <!--style-->
+   <link rel="stylesheet" href="style.css">
+   <!-- icon -->
+   <link rel="stylesheet" href="font-awesome/css/all.css">
+   <!-- theme -->
+   <link id="theme" rel="stylesheet" href="theme/light.css">
+</head>
+
+<body>
+   <!-- start alert -->
+   <div id="start-alert">
+      <img src="image/robot.svg">
+      <span>Jan bot</span>
+      <span id="version"></span>
+   </div>
+   <!--header-->
+   <header>
+      <div class="flex flex-right">
+         <div id="profile">
+            <img loading="lazy" src="image/robot.svg">
+         </div>
+         <div id="name">جان بات</div>
+      </div>
+      <div class="flex flex-left">
+         <span class="fas fa-bars" onclick="menu()"></span>
+      </div>
+   </header>
+   <!--main-->
+   <main></main>
+   <!--footer-->
+   <footer>
+      <form method="dialog">
+         <button type="reset" id="send" class="fas fa-paper-plane"></button>
+         <input type="text" id="user-text" autocomplete="off" placeholder="متنی را وارد کنید">
+      </form>
+   </footer>
+   <!--script-->
+   <script src="main.js"></script>
+</body>
+
+</html>
