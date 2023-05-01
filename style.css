@@ -1,0 +1,313 @@
+@font-face {
+   font-family: "negaar";
+   src: url("font/Negaar.ttf");
+}
+@font-face {
+   font-family: "emojis";
+   src: url("font/microsoft.ttf");
+}
+
+*::-webkit-scrollbar {
+   background: #0000;
+}
+*::-webkit-scrollbar-thumb {
+   background: var(--robot-massage-bg);
+   display: block;
+   width: 10px;
+   border-radius: 4px;
+}
+
+* {
+   font-family: monospace, "negaar", "emojis";
+   user-select: none;
+   transition: all 0.3s !important;
+}
+body {
+   margin: 0;
+   padding: 0;
+   background: var(--body-bg);
+   width: 100vw;
+   height: 100vh;
+}
+
+#start-alert {
+   position: fixed;
+   width: 100vw;
+   height: 100vh;
+   z-index: 8;
+   background: #000;
+   display: flex;
+   flex-flow: nowrap column;
+   justify-content: center;
+   align-items: center;
+   color: #fff;
+   animation: start 0.5s 9.5s both;
+}
+#start-alert>img {
+   width: 50vw;
+   height: 50vw;
+   border-radius: var(--rad);
+   animation: light 3s 3;
+}
+#start-alert>*:nth-of-type(1) {
+   margin: 10px;
+   font-size: 40px;
+}
+
+header {
+   background: var(--header-bg);
+   color: var(--header-color);
+   width: 100vw;
+   height: var(--header-height);
+   box-shadow: var(--header-shodow);
+   border-bottom: var(--header-border);
+   overflow: hidden;
+   position: fixed;
+   top: 0;
+   z-index: 1;
+   display: grid;
+   grid-template-columns: repeat(2, 1fr);
+   grid-template-row: 1fr;
+   align-content: center;
+   box-sizing: border-box;
+   font-size: 25px;
+}
+#profile {
+   background: var(--profile-bg);
+   height: var(--profile-height);
+   width: var(--profile-width);
+   border-radius: var(--profile-radius);
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   margin: 0;
+}
+#name {
+   height: var(--header-height);
+   padding: 0;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   font-size: 20px;
+}
+
+main {
+   overflow: hidden scroll;
+   background: var(--main-pattern);
+   background-size: var(--main-pattern-size);
+   background-attachment: fixed;
+   background-position: center;
+   position: fixed;
+   top: 0;
+   left: 0;
+   width: 100vw;
+   height: 100vh;
+   font-size: 18px;
+   padding: var(--header-height) 0 var(--footer-height) 0;
+   box-sizing: border-box;
+   scroll-behavior: smooth;
+   -webkit-overflow-scrolling: touch;
+}
+
+.user-div {
+   text-align: right;
+}
+.user-massage {
+   border-radius: var(--user-massage-radius);
+   background: var(--user-massage-bg);
+   color: var(--user-massage-color);
+   padding: 10px;
+   display: inline-block;
+   margin: 10px;
+   position: relative;
+   animation: up 0.5s both;
+   max-width: 80vw;
+   overflow-wrap: break-word;
+   text-align: right;
+   direction: ltr;
+}
+.robot-div {
+   text-align: left;
+}
+.robot-massage {
+   border-radius: var(--robot-massage-radius);
+   background: var(--robot-massage-bg);
+   color: var(--robot-massage-color);
+   padding: 10px;
+   display: inline-block;
+   margin: 10px;
+   position: relative;
+   animation: up 0.5s both;
+   max-width: 80vw;
+   overflow-wrap: break-word;
+   direction: rtl;
+}
+.robot-massage.wikipedia{
+   padding-top: 30px;
+}
+.robot-massage.wikipedia::after{
+   content: "wikipedia";
+   display: inline-block;
+   position: absolute;
+   top: 0;
+   left: 0;
+   background: var(--robot-massage-tag-bg);
+   color: var(--robot-massage-color);
+   padding: 5px;
+   font-weight: bold;
+   font-family: monospace;
+   border-bottom-right-radius: 10px;
+   font-size: 14px;
+   text-transform: uppercase;
+}
+
+.menu{
+   text-align: center;
+}
+.menu button{
+   min-height: var(--button-height) !important;
+   width: 100%;
+   overflow: hidden;
+   background: var(--button-bg);
+   color: var(--button-color);
+   box-sizing: border-box;
+   border-radius: var(--button-radius);
+   padding: 10px;
+   outline: none;
+   border: var(--button-border)
+}
+.menu button:active {
+   background: var(--send-active-bg);
+   color: var(--send-active-color);
+}
+
+
+hr{
+   height: 0;
+   border: none;
+   border-top: 5px solid var(--hr-color);
+   border-radius: var(--hr-radius);
+}
+
+footer {
+   position: fixed;
+   bottom: 0;
+   width: 100vw;
+   background: var(--footer-bg);
+   overflow: hidden;
+   z-index: 1;
+   height: var(--footer-height);
+   box-shadow: var(--footer-shodow);
+}
+footer>form {
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   flex-flow: nowrap row-reverse;
+   height: var(--footer-height);
+   ;
+   padding-inline: 10px;
+}
+#user-text {
+   flex-grow: 7;
+   height: var(--input-height) !important;
+   height: auto;
+   font-size: 18px;
+   padding: 0 10px 0 10px;
+   border-radius: var(--input-radius);
+   color: var(--input-color);
+   background: var(--input-bg);
+   box-sizing: border-box;
+   border: var(--input-border);
+   outline: none;
+   text-align: auto;
+   direction: auto;
+}
+#send {
+   height: var(--send-height) !important;
+   width: 0px;
+   overflow: hidden;
+   background: var(--send-bg);
+   color: var(--send-color);
+   font-size: 20px;
+   box-sizing: border-box;
+   border-radius: var(--send-radius);
+   padding: 0;
+   border: var(--send-border);
+   outline: none;
+}
+#send.show {
+   width: 70px;
+   margin-right: 10px;
+}
+#send:active {
+   background: var(--send-active-bg);
+   color: var(--send-active-color);
+}
+
+/* flex */
+.flex {
+   display: flex;
+   box-sizing: border-box;
+   align-items: center;
+   justify-content: space-between;
+   padding: 10px;
+}
+.flex>* {
+   margin: 10px;
+}
+.flex-right {
+   justify-content: right;
+}
+.flex-left {
+   justify-content: left;
+}
+.flex-center {
+   justify-content: center;
+}
+.flex-row {
+   flex-direction: row;
+}
+.flex-col {
+   flex-direction: column;
+}
+.flex-wrap {
+   flex-wrap: wrap;
+}
+.flex-nowrap {
+   flex-wrap: nowrap;
+}
+
+@keyframes up {
+   from {
+      opacity: 0;
+      top: 100px;
+   }
+
+   to {
+      opacity: 1;
+      top: 0;
+   }
+}
+@keyframes light {
+   0% {
+      filter: drop-shadow(0 0 0 #0000);
+   }
+
+   50% {
+      filter: drop-shadow(0 0 50px hsl(150, 100%, 50%));
+   }
+
+   100% {
+      filter: drop-shadow(0 0 200px #0000);
+   }
+}
+@keyframes start {
+   0% {
+      clip-path: circle(100% at 50% 50%)
+   }
+
+   100% {
+      clip-path: circle(0% at 50% 50%)
+   }
+}
