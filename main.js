@@ -206,9 +206,6 @@ function robotMassage(tx, read, delay) {
       }).catch(error => {
          msText.innerHTML = '<i class="fa fa-wifi-slash fa-2x"></i>';
       })
-      if (tx == 'منو') {
-         msText.innerHTML = "<div class='menu'>منو <hr><button onclick='meMassage(this.innerHTML)'>حالت تیره</button><hr><button onclick='meMassage(this.innerHTML)'>حالت روشن</button><hr><button onclick='meMassage(this.innerHTML)'>پاک کردن تاریخچه</button></div>";
-      }
    writing(read,delay);
    setTimeout(() => {
       main.appendChild(msDiv);
