@@ -1,7 +1,7 @@
 const main = document.querySelector("main");
 const text = document.querySelector("#user-text");
 const send = document.querySelector("#send");
-const Status = document.querySelector("#name");
+const status = document.querySelector("#name");
 const theme = document.querySelector("#theme");
 const robotSound = "sound/bell.ogg";
 const meSound = "sound/bubble.wav";
@@ -27,23 +27,14 @@ function play(url) {
    var audio = new Audio(url);
    audio.play()
 }
-function writing(number) {
+function writing(read,delay) {
    setTimeout(() => {
-      Status.innerHTML = 'درحال نوشتن';
-   }, number)
-}
-function status() {
-   if (navigator.onLine) {
-      Status.innerHTML = 'آنلاین'
-   } else {
-      Status.innerHTML = 'آفلاین'
-   }
-   window.ononline = () => {
-      Status.innerHTML = 'آنلاین';
-   }
-   window.onoffline = () => {
-      Status.innerHTML = 'آفلاین'
-   }
+      status.innerHTML = 'درحال نوشتن';
+   }, read);
+   setTimeout(() => {
+      status.innerHTML = 'جان بات';
+   }, read + delay);
+   
 }
 function setTheme(tx) {
    var theme = document.querySelector("#theme");
@@ -60,11 +51,13 @@ function getTheme(tx) {
 function removeSpaces(tx) {
    return tx.replace(/\s/g, '');
 }
+function menu(){
+   meMassage('منو');
+}
 
 getHistory();
 getTheme();
 scroll();
-status();
 
 function meMassage(tx) {
    var msDiv = document.createElement("div");
@@ -75,11 +68,10 @@ function meMassage(tx) {
    msText.className = "user-massage";
    msText.innerText = tx;
    play(meSound);
-   robotMassage(tx, 1000, 2000);
+   robotMassage(tx, 500, 1000);
    scroll()
    setHistory();
 }
-
 function robotMassage(tx, read, delay) {
    var msDiv = document.createElement("div");
    var msText = document.createElement("div");
@@ -87,7 +79,7 @@ function robotMassage(tx, read, delay) {
    msText.className = "robot-massage";
    msText.innerHTML = '•••';
 
-   fetch('brain.json')
+   fetch('https://leafweb.github.io/janbot/brain.json')
       .then(x => x.json())
       .then(data => {
          let brain = data;
@@ -197,37 +189,35 @@ function robotMassage(tx, read, delay) {
             }
          }
          if (msText.innerHTML == '•••') {
-            if (navigator.onLine) {
-               fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
-                  .then(response => response.json())
-                  .then(data => {
-                     summary = data.extract;
-                     msText.innerHTML = summary;
-                     if (summary !== undefined) {
-                        msText.classList.add('wikipedia')
-                     } else {
-                        msText.innerHTML = 'نمیدانم';
-                     }
-                  }).catch(error => {
-                     msText.innerHTML = '<i class="fa fa-wifi-slash"></i>';
-                  })
-            } else {
-               msText.innerHTML = brainNotFound[Math.floor(Math.random() * brainNotFound.length)] + '<br>';
-               msText.innerHTML += 'برای اطلاعات بیشتر به شبکه متصل شوید'
-            }
+            fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
+            .then(response => response.json())
+            .then(data => {
+               summary = data.extract;
+               msText.innerHTML = summary;
+               if (summary !== undefined) {
+                  msText.classList.add('wikipedia')
+               } else {
+                  msText.innerHTML = 'نمیدانم';
+               }
+            }).catch(error => {
+               msText.innerHTML = '<i class="fa fa-wifi-slash"></i>';
+            })
          }
+      }).catch(error => {
+         msText.innerHTML = '<i class="fa fa-wifi-slash fa-2x"></i>';
       })
-   writing(delay);
+      if (tx == 'منو') {
+         msText.innerHTML = "<div class='menu'>منو <hr><button onclick='meMassage(this.innerHTML)'>حالت تیره</button><hr><button onclick='meMassage(this.innerHTML)'>حالت روشن</button><hr><button onclick='meMassage(this.innerHTML)'>پاک کردن تاریخچه</button></div>";
+      }
+   writing(read,delay);
    setTimeout(() => {
       main.appendChild(msDiv);
       msDiv.appendChild(msText);
       scroll();
       play(robotSound);
-      status();
       setHistory();
    }, delay + read);
 }
-
 send.onclick = () => {
    meMassage(text.value);
    text.focus();

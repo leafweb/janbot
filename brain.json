@@ -61,11 +61,6 @@
          "re":["من جان هستم","من جان هستم. ربات تو"]
       },
       {
-         "ms":["منو"],
-         "re":["<div class='menu'>منو <hr><button onclick='meMassage(this.innerHTML)'>حالت تیره</button><hr><button onclick='meMassage(this.innerHTML)'>حالت روشن</button><hr><button onclick='meMassage(this.innerHTML)'>پاک کردن تاریخچه</button></div>"],
-         "run":"menu"
-      },
-      {
          "ms":["حالتتیره","darkmode"],
          "re":["تیره شدم"],
          "run":["darkMode"]
