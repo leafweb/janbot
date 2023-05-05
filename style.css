@@ -11,17 +11,17 @@
    background: #0000;
 }
 *::-webkit-scrollbar-thumb {
-   background: var(--robot-massage-bg);
+   background: var(--robot-message-bg);
    display: block;
    width: 10px;
    border-radius: 4px;
 }
-
 * {
    font-family: monospace, "negaar", "emojis";
    user-select: none;
    transition: all 0.3s !important;
 }
+
 body {
    margin: 0;
    padding: 0;
@@ -41,7 +41,6 @@ body {
    justify-content: center;
    align-items: center;
    color: #fff;
-   animation: start 0.5s 9.5s both;
 }
 #start-alert>img {
    width: 50vw;
@@ -82,7 +81,7 @@ header {
    align-items: center;
    margin: 0;
 }
-#name {
+#status {
    height: var(--header-height);
    padding: 0;
    display: flex;
@@ -112,16 +111,16 @@ main {
 .user-div {
    text-align: right;
 }
-.user-massage {
-   border-radius: var(--user-massage-radius);
-   background: var(--user-massage-bg);
-   color: var(--user-massage-color);
+.user-message {
+   border-radius: var(--user-message-radius);
+   background: var(--user-message-bg);
+   color: var(--user-message-color);
    padding: 10px;
    display: inline-block;
    margin: 10px;
    position: relative;
    animation: up 0.5s both;
-   max-width: 80vw;
+   max-width: 70vw;
    overflow-wrap: break-word;
    text-align: right;
    direction: ltr;
@@ -129,30 +128,65 @@ main {
 .robot-div {
    text-align: left;
 }
-.robot-massage {
-   border-radius: var(--robot-massage-radius);
-   background: var(--robot-massage-bg);
-   color: var(--robot-massage-color);
+.robot-message {
+   border-radius: var(--robot-message-radius);
+   background: var(--robot-message-bg);
+   color: var(--robot-message-color);
    padding: 10px;
    display: inline-block;
    margin: 10px;
    position: relative;
    animation: up 0.5s both;
-   max-width: 80vw;
+   max-width: 70vw;
    overflow-wrap: break-word;
    direction: rtl;
+   text-align: right;
 }
-.robot-massage.wikipedia{
+.robot-message.wikipedia{
    padding-top: 30px;
 }
-.robot-massage.wikipedia::after{
+.robot-message.wikipedia::after{
    content: "wikipedia";
    display: inline-block;
    position: absolute;
    top: 0;
    left: 0;
-   background: var(--robot-massage-tag-bg);
-   color: var(--robot-massage-color);
+   background: var(--robot-message-tag-bg);
+   color: var(--robot-message-color);
+   padding: 5px;
+   font-weight: bold;
+   font-family: monospace;
+   border-bottom-right-radius: 10px;
+   font-size: 14px;
+   text-transform: uppercase;
+}
+
+.error-div {
+   text-align: left;
+}
+.error-message {
+   border-radius: var(--robot-message-radius);
+   background: var(--robot-message-bg);
+   color: var(--robot-message-color);
+   padding: 10px;
+   display: inline-block;
+   margin: 10px;
+   position: relative;
+   animation: up 0.5s both;
+   max-width: 70vw;
+   overflow-wrap: break-word;
+   direction: rtl;
+   padding-top: 30px;
+   text-align: right;
+}
+.error-message::after{
+   content: "error message";
+   display: inline-block;
+   position: absolute;
+   top: 0;
+   left: 0;
+   background: var(--robot-message-tag-bg);
+   color: var(--robot-message-color);
    padding: 5px;
    font-weight: bold;
    font-family: monospace;
@@ -181,14 +215,12 @@ main {
    color: var(--send-active-color);
 }
 
-
 hr{
    height: 0;
    border: none;
    border-top: 5px solid var(--hr-color);
    border-radius: var(--hr-radius);
 }
-
 footer {
    position: fixed;
    bottom: 0;

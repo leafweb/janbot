@@ -1,12 +1,15 @@
 const main = document.querySelector("main");
 const text = document.querySelector("#user-text");
 const send = document.querySelector("#send");
-const status = document.querySelector("#name");
+const status = document.querySelector("#status");
+const name = document.querySelector("#name");
 const theme = document.querySelector("#theme");
+const startPage = document.querySelector("#start-alert");
 const robotSound = "sound/bell.ogg";
 const meSound = "sound/bubble.wav";
-const version = "2";
-document.querySelector("#version").innerHTML = "V" + version;
+const version = document.querySelector("#version")
+const v = "2.3";
+version.innerHTML = "V" + v;
 
 function setHistory() {
    const histiry = localStorage.getItem("histiry");
@@ -17,7 +20,7 @@ function getHistory() {
    main.innerHTML = histiry;
 }
 function clearHistory(tx) {
-   main.innerHTML = '<div class="user-div"><div class="user-massage">' + tx + '</div></div>';
+   main.innerHTML = '<div class="user-div"><div class="user-message">' + tx + '</div></div>';
    setHistory();
 }
 function scroll() {
@@ -52,34 +55,58 @@ function removeSpaces(tx) {
    return tx.replace(/\s/g, '');
 }
 function menu(){
-   meMassage('منو');
+   meMessage('منو');
+}
+function start(){
+   if (navigator.onLine) {
+      fetch('https://leafweb.github.io/janbot/brain.json')
+         .then(x => x.json())
+         .then(y => {
+            startPage.style.animation = 'start 0.5s both';
+         }).catch(error => {
+            setTimeout(()=>{
+               name.innerHTML = 'شما آفلاین هستید!';
+               version.innerHTML = 'لطفا از اتصال خود مطمئن شوید';
+            },3000)
+         })
+   } else {
+      name.innerHTML = 'شما آفلاین هستید!';
+      version.innerHTML = 'لطفا از اتصال خود مطمئن شوید'
+   }
+}
+if (localStorage.getItem('programmerMod') == undefined) {
+   localStorage.setItem('programmerMod', 'off');
 }
 
 getHistory();
 getTheme();
 scroll();
+start();
+window.ononline = ()=>{
+   start();
+}
 
-function meMassage(tx) {
+function meMessage(tx) {
    var msDiv = document.createElement("div");
    var msText = document.createElement("div");
    main.appendChild(msDiv);
    msDiv.appendChild(msText);
    msDiv.className = "user-div";
-   msText.className = "user-massage";
+   msText.className = "user-message";
    msText.innerText = tx;
    play(meSound);
-   robotMassage(tx, 500, 1000);
+   robotMessage(tx, 1000, 2000);
    scroll()
    setHistory();
 }
-function robotMassage(tx, read, delay) {
+function robotMessage(tx, read, delay) {
    var msDiv = document.createElement("div");
    var msText = document.createElement("div");
    msDiv.className = "robot-div";
-   msText.className = "robot-massage";
+   msText.className = "robot-message";
    msText.innerHTML = '•••';
 
-   fetch('https://leafweb.github.io/janbot/brain.json')
+   fetch('brain.json')
       .then(x => x.json())
       .then(data => {
          let brain = data;
@@ -146,7 +173,6 @@ function robotMassage(tx, read, delay) {
          for (x in wordBrain) {
             var reGex = new RegExp(wordBrain[x].ms.join("|"));
             if (reGex.test(removeSpaces(tx.toLowerCase())) === true) {
-               msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
                //run
                var run = wordBrain[x].run;
                if (run == 'darkMode') {
@@ -158,11 +184,17 @@ function robotMassage(tx, read, delay) {
                if (run == 'removeHistory') {
                   clearHistory(tx);
                }
-               if (run == 'menu') {
-                  var delay = 3;
+               if (run == 'programmerMod') {
+                  if (localStorage.getItem('programmerMod') == 'off') {
+                     localStorage.setItem('programmerMod', 'on');
+                     msText.innerHTML = 'حالت برنامه نویسی روشن شد';
+                  } else {
+                     localStorage.setItem('programmerMod', 'off');
+                     msText.innerHTML = 'حالت برنامه نویسی خاموش شد';
+                  }
                }
                if (run == 'wikipedia') {
-                  if (navigator.onLine) {
+                  if (msText.innerHTML !== '•••') {
                      for (y in wordBrain[x].ms) {
                         tx = tx.replace(wordBrain[x].ms[y], '');
                      }
@@ -179,16 +211,22 @@ function robotMassage(tx, read, delay) {
                               msText.innerHTML = 'نمیدانم';
                            }
                         }).catch(error => {
-                           console.log(error.name);
                            msText.innerHTML = '<i class="fa fa-cloud-slash"></i>';
                         })
-                  } else {
-                     msText.innerHTML = 'من نمیدوانم اطلاعاتی دریافت کنم' + 'br' + 'لطفا به شبکه متصل شویدم'
                   }
                }
+               msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
             }
          }
          if (msText.innerHTML == '•••') {
+            if (localStorage.getItem('programmerMod') == 'on') {
+               try {
+                  msText.innerHTML = eval(tx);
+               } catch (error) {
+                  msText.innerHTML = 'Error';
+                  setTimeout(() => { errorMessage(error.neme + '<br>' + error.message) }, read + delay + delay)
+               }
+            } else {
             fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
             .then(response => response.json())
             .then(data => {
@@ -197,18 +235,16 @@ function robotMassage(tx, read, delay) {
                if (summary !== undefined) {
                   msText.classList.add('wikipedia')
                } else {
-                  msText.innerHTML = 'نمیدانم';
+                  msText.innerHTML = 'منظورتون رو متوجه نشدم';
                }
             }).catch(error => {
-               msText.innerHTML = '<i class="fa fa-wifi-slash"></i>';
+               msText.innerHTML = '<i class="fa fa-wifi-slash fa-2x"></i>';
             })
+         }
          }
       }).catch(error => {
          msText.innerHTML = '<i class="fa fa-wifi-slash fa-2x"></i>';
       })
-      if (tx == 'منو') {
-         msText.innerHTML = "<div class='menu'>منو <hr><button onclick='meMassage(this.innerHTML)'>حالت تیره</button><hr><button onclick='meMassage(this.innerHTML)'>حالت روشن</button><hr><button onclick='meMassage(this.innerHTML)'>پاک کردن تاریخچه</button></div>";
-      }
    writing(read,delay);
    setTimeout(() => {
       main.appendChild(msDiv);
@@ -218,8 +254,20 @@ function robotMassage(tx, read, delay) {
       setHistory();
    }, delay + read);
 }
+function errorMessage(tx) {
+   var msDiv = document.createElement("div");
+   var msText = document.createElement("div");
+   main.appendChild(msDiv);
+   msDiv.appendChild(msText);
+   msDiv.className = "error-div";
+   msText.className = "error-message";
+   msText.innerHTML = tx;
+   play(robotSound);
+   scroll();
+   setHistory();
+}
 send.onclick = () => {
-   meMassage(text.value);
+   meMessage(text.value);
    text.focus();
    send.classList.remove('show');
    scroll();

@@ -22,16 +22,16 @@
    --profile-height: 50px;
    --profile-radius: var(--radius);
 
-   --robot-massage-bg: linear-gradient(45deg, hsl(150, 100%, 45%), hsl(180, 100%, 45%));
-   --robot-massage-color: #000;
-   --robot-massage-tag-bg: #fff5;
-   --robot-massage-border: none;
-   --robot-massage-radius: 0 var(--radius) var(--radius) var(--radius);
+   --robot-message-bg: linear-gradient(45deg, hsl(150, 100%, 45%), hsl(180, 100%, 45%));
+   --robot-message-color: #000;
+   --robot-message-tag-bg: #fff5;
+   --robot-message-border: none;
+   --robot-message-radius: 0 var(--radius) var(--radius) var(--radius);
 
-   --user-massage-bg: #fff;
-   --user-massage-color: #000;
-   --user-massage-border: none;
-   --user-massage-radius: var(--radius) 0 var(--radius) var(--radius);
+   --user-message-bg: #fff;
+   --user-message-color: #000;
+   --user-message-border: none;
+   --user-message-radius: var(--radius) 0 var(--radius) var(--radius);
 
    --footer-bg: linear-gradient(90deg, hsl(150, 100%, 45%), hsl(180, 100%, 45%));
    --footer-border: none;
