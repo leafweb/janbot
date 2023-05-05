@@ -62,7 +62,7 @@ function start(){
       fetch('https://leafweb.github.io/janbot/brain.json')
          .then(x => x.json())
          .then(y => {
-            startPage.style.animation = 'start 0.5s both';
+            startPage.style.animation = 'start 1s 3s both';
          }).catch(error => {
             setTimeout(()=>{
                name.innerHTML = 'شما آفلاین هستید!';
@@ -184,14 +184,8 @@ function robotMessage(tx, read, delay) {
                if (run == 'removeHistory') {
                   clearHistory(tx);
                }
-               if (run == 'programmerMod') {
-                  if (localStorage.getItem('programmerMod') == 'off') {
-                     localStorage.setItem('programmerMod', 'on');
-                     msText.innerHTML = 'حالت برنامه نویسی روشن شد';
-                  } else {
-                     localStorage.setItem('programmerMod', 'off');
-                     msText.innerHTML = 'حالت برنامه نویسی خاموش شد';
-                  }
+               if (run == 'fullscreen') {
+                  document.body.requestFullscreen()
                }
                if (run == 'wikipedia') {
                   if (msText.innerHTML !== '•••') {
@@ -216,8 +210,18 @@ function robotMessage(tx, read, delay) {
                   }
                }
                msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
+               if (run == 'programmerMod') {
+                  if (localStorage.getItem('programmerMod') == 'off') {
+                     localStorage.setItem('programmerMod', 'on');
+                     msText.innerHTML = 'حالت برنامه نویسی روشن شد';
+                  } else {
+                     localStorage.setItem('programmerMod', 'off');
+                     msText.innerHTML = 'حالت برنامه نویسی خاموش شد';
+                  }
+               }
             }
          }
+         
          if (msText.innerHTML == '•••') {
             if (localStorage.getItem('programmerMod') == 'on') {
                try {
