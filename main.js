@@ -106,7 +106,7 @@ function robotMessage(tx, read, delay) {
    msText.className = "robot-message";
    msText.innerHTML = '•••';
 
-   fetch('brain.json')
+   fetch('https://leafweb.github.io/janbot/brain.json')
       .then(x => x.json())
       .then(data => {
          let brain = data;
