@@ -46,7 +46,7 @@ body {
    width: 50vw;
    height: 50vw;
    border-radius: var(--rad);
-   animation: light 3s 3;
+   animation: light 3s infinite;
 }
 #start-alert>*:nth-of-type(1) {
    margin: 10px;
@@ -80,6 +80,10 @@ header {
    justify-content: center;
    align-items: center;
    margin: 0;
+}
+#profile>img {
+   height: var(--profile-height);
+   width: var(--profile-width);
 }
 #status {
    height: var(--header-height);
