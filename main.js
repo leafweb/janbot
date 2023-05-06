@@ -184,8 +184,6 @@ function robotMessage(tx, read, delay) {
                if (run == 'removeHistory') {
                   clearHistory(tx);
                }
-                  document.body.requestFullscreen()
-               }
                if (run == 'wikipedia') {
                   if (msText.innerHTML !== '•••') {
                      for (y in wordBrain[x].ms) {

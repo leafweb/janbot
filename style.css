@@ -101,13 +101,13 @@ main {
    background-attachment: fixed;
    background-position: center;
    position: fixed;
-   top: 0;
+   top: var(--header-height);
    left: 0;
    width: 100vw;
-   height: 100vh;
+   height: calc(100vh - var(--header-height) - var(--footer-height));
    font-size: 18px;
-   padding: var(--header-height) 0 var(--footer-height) 0;
    box-sizing: border-box;
+   padding: 10px;
    scroll-behavior: smooth;
    -webkit-overflow-scrolling: touch;
 }
@@ -123,7 +123,7 @@ main {
    display: inline-block;
    margin: 10px;
    position: relative;
-   animation: up 0.5s both;
+   animation: left 0.5s both;
    max-width: 70vw;
    overflow-wrap: break-word;
    text-align: right;
@@ -140,7 +140,7 @@ main {
    display: inline-block;
    margin: 10px;
    position: relative;
-   animation: up 0.5s both;
+   animation: right 0.5s both;
    max-width: 70vw;
    overflow-wrap: break-word;
    direction: rtl;
@@ -176,7 +176,7 @@ main {
    display: inline-block;
    margin: 10px;
    position: relative;
-   animation: up 0.5s both;
+   animation: right 0.5s both;
    max-width: 70vw;
    overflow-wrap: break-word;
    direction: rtl;
@@ -323,6 +323,27 @@ footer>form {
    to {
       opacity: 1;
       top: 0;
+   }
+}
+@keyframes left {
+   from {
+      opacity: 0;
+      left: 100px;
+   }
+
+   to {
+      opacity: 1;
+      left: 0;
+   }
+}@keyframes right {
+   from {
+      opacity: 0;
+      right: 100px;
+   }
+
+   to {
+      opacity: 1;
+      right: 0;
    }
 }
 @keyframes light {
