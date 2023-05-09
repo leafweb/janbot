@@ -105,7 +105,14 @@ function robotMessage(tx, read, delay) {
    msDiv.className = "robot-div";
    msText.className = "robot-message";
    msText.innerHTML = '•••';
-
+   if (localStorage.getItem('programmerMod') == 'on') {
+      try {
+         msText.innerHTML = eval(tx);
+      } catch (error) {
+         msText.innerHTML = 'Error';
+         setTimeout(() => { errorMessage(error.neme + '<br>' + error.message) }, read + delay + delay)
+      }
+   } else {
    fetch('https://leafweb.github.io/janbot/brain.json')
       .then(x => x.json())
       .then(data => {
@@ -185,7 +192,6 @@ function robotMessage(tx, read, delay) {
                   clearHistory(tx);
                }
                if (run == 'wikipedia') {
-                  if (msText.innerHTML !== '•••') {
                      for (y in wordBrain[x].ms) {
                         tx = tx.replace(wordBrain[x].ms[y], '');
                      }
@@ -196,8 +202,17 @@ function robotMessage(tx, read, delay) {
                         .then(data => {
                            summary = data.extract;
                            msText.innerHTML = summary;
+                           if (summary.includes('ممکن است به یکی از موارد زیر اشاره داشته باشد') == true) {
+                              fetch(`https://fa.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${tx}&origin=*`)
+                                 .then(response => response.json())
+                                 .then(data => {
+                                    var results = data.query.search;
+                                    msText.innerHTML = results[0].snippet;
+                                 })
+                           }
                            if (summary !== undefined) {
-                              msText.classList.add('wikipedia')
+                              msText.classList.add('wikipedia');
+                              alert()
                            } else {
                               msText.innerHTML = 'نمیدانم';
                            }
@@ -205,7 +220,6 @@ function robotMessage(tx, read, delay) {
                            msText.innerHTML = '<i class="fa fa-cloud-slash"></i>';
                         })
                   }
-               }
                msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
                if (run == 'programmerMod') {
                   if (localStorage.getItem('programmerMod') == 'off') {
@@ -220,19 +234,19 @@ function robotMessage(tx, read, delay) {
          }
          
          if (msText.innerHTML == '•••') {
-            if (localStorage.getItem('programmerMod') == 'on') {
-               try {
-                  msText.innerHTML = eval(tx);
-               } catch (error) {
-                  msText.innerHTML = 'Error';
-                  setTimeout(() => { errorMessage(error.neme + '<br>' + error.message) }, read + delay + delay)
-               }
-            } else {
             fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
             .then(response => response.json())
             .then(data => {
                summary = data.extract;
                msText.innerHTML = summary;
+               if (summary.includes('ممکن است به یکی از موارد زیر اشاره داشته باشد') == true) {
+                  fetch(`https://fa.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${tx}&origin=*`)
+                     .then(response => response.json())
+                     .then(data => {
+                        var results = data.query.search;
+                        msText.innerHTML = results[0].snippet;
+                     })
+               }
                if (summary !== undefined) {
                   msText.classList.add('wikipedia')
                } else {
@@ -242,10 +256,10 @@ function robotMessage(tx, read, delay) {
                msText.innerHTML = '<i class="fa fa-wifi-slash fa-2x"></i>';
             })
          }
-         }
       }).catch(error => {
          msText.innerHTML = '<i class="fa fa-wifi-slash fa-2x"></i>';
       })
+   }
    writing(read,delay);
    setTimeout(() => {
       main.appendChild(msDiv);
