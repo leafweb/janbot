@@ -217,7 +217,7 @@ function robotMessage(tx, read, delay) {
                               msText.innerHTML = 'نمیدانم';
                            }
                         }).catch(error => {
-                           msText.innerHTML = '<i class="fa fa-cloud-slash"></i>';
+                           msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
                         })
                   }
                msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
