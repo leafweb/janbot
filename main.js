@@ -30,14 +30,14 @@ function play(url) {
    var audio = new Audio(url);
    audio.play()
 }
-function writing(read,delay) {
+function writing(read, delay) {
    setTimeout(() => {
       status.innerHTML = 'درحال نوشتن';
    }, read);
    setTimeout(() => {
       status.innerHTML = 'جان بات';
    }, read + delay);
-   
+
 }
 function setTheme(tx) {
    var theme = document.querySelector("#theme");
@@ -54,26 +54,27 @@ function getTheme(tx) {
 function removeSpaces(tx) {
    return tx.replace(/\s/g, '');
 }
-function menu(){
+function menu() {
    meMessage('منو');
 }
-function start(){
+function start() {
    if (navigator.onLine) {
       fetch('https://leafweb.github.io/janbot/brain.json')
          .then(x => x.json())
          .then(y => {
             startPage.style.animation = 'start 1s 3s both';
          }).catch(error => {
-            setTimeout(()=>{
+            setTimeout(() => {
                name.innerHTML = 'شما آفلاین هستید!';
                version.innerHTML = 'لطفا از اتصال خود مطمئن شوید';
-            },3000)
+            }, 3000)
          })
    } else {
       name.innerHTML = 'شما آفلاین هستید!';
       version.innerHTML = 'لطفا از اتصال خود مطمئن شوید'
    }
 }
+
 if (localStorage.getItem('programmerMod') == undefined) {
    localStorage.setItem('programmerMod', 'off');
 }
@@ -82,7 +83,7 @@ getHistory();
 getTheme();
 scroll();
 start();
-window.ononline = ()=>{
+window.ononline = () => {
    start();
 }
 
@@ -105,20 +106,13 @@ function robotMessage(tx, read, delay) {
    msDiv.className = "robot-div";
    msText.className = "robot-message";
    msText.innerHTML = '•••';
-   if (localStorage.getItem('programmerMod') == 'on') {
-      try {
-         msText.innerHTML = eval(tx);
-      } catch (error) {
-         msText.innerHTML = 'Error';
-         setTimeout(() => { errorMessage(error.neme + '<br>' + error.message) }, read + delay + delay)
-      }
-   } else {
-   fetch('https://leafweb.github.io/janbot/brain.json')
+   fetch('brain.json')
       .then(x => x.json())
       .then(data => {
          let brain = data;
          let aboutBrain = brain.about;
-         let brainNotFound = brain.notFound;
+         let brainnotfound = brain.notFound;
+         let brineDoNotKnow = brain.doNotKnow;
          let wordSum = brain.sum;
          let wordBrain = brain.word;
          let replaceBrine = brain.replace;
@@ -177,11 +171,21 @@ function robotMessage(tx, read, delay) {
          for (x in replaceBrine) {
             tx = tx.replaceAll(replaceBrine[x].a, replaceBrine[x].b);
          }
+         //answer
          for (x in wordBrain) {
             var reGex = new RegExp(wordBrain[x].ms.join("|"));
             if (reGex.test(removeSpaces(tx.toLowerCase())) === true) {
+               var answer = msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
+               msText.innerHTML = answer;
                //run
-               var run = wordBrain[x].run;
+               var run = undefined;
+               if (answer !== undefined) {
+                  var run = wordBrain[x].run;
+               }
+               if (run == 'name') {
+                  msText.innerHTML = answer;
+                  break
+               }
                if (run == 'darkMode') {
                   setTheme('dark');
                }
@@ -192,16 +196,18 @@ function robotMessage(tx, read, delay) {
                   clearHistory(tx);
                }
                if (run == 'wikipedia') {
-                     for (y in wordBrain[x].ms) {
-                        tx = tx.replace(wordBrain[x].ms[y], '');
-                     }
-                     tx = tx.replaceAll('?', '');
-                     tx = tx.replaceAll('؟', '');
-                     fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
-                        .then(response => response.json())
-                        .then(data => {
-                           summary = data.extract;
-                           msText.innerHTML = summary;
+                  for (y in wordBrain[x].ms) {
+                     tx = tx.replace(wordBrain[x].ms[y], '');
+                  }
+                  tx = tx.replaceAll('?', '');
+                  tx = tx.replaceAll('؟', '');
+                  fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
+                     .then(response => response.json())
+                     .then(data => {
+                        var summary = data.extract;
+                        msText.innerHTML = summary;
+                        if (summary !== undefined) {
+                           msText.classList.add('wikipedia');
                            if (summary.includes('ممکن است به یکی از موارد زیر اشاره داشته باشد') == true) {
                               fetch(`https://fa.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${tx}&origin=*`)
                                  .then(response => response.json())
@@ -210,17 +216,13 @@ function robotMessage(tx, read, delay) {
                                     msText.innerHTML = results[0].snippet;
                                  })
                            }
-                           if (summary !== undefined) {
-                              msText.classList.add('wikipedia');
-                              alert()
-                           } else {
-                              msText.innerHTML = 'نمیدانم';
-                           }
-                        }).catch(error => {
-                           msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
-                        })
-                  }
-               msText.innerHTML = wordBrain[x].re[Math.floor(Math.random() * wordBrain[x].re.length)];
+                        } else {
+
+                           msText.innerHTML = brineDoNotKnow[Math.floor(Math.random() * brineDoNotKnow.length)];
+
+                        }
+                     })
+               }
                if (run == 'programmerMod') {
                   if (localStorage.getItem('programmerMod') == 'off') {
                      localStorage.setItem('programmerMod', 'on');
@@ -232,35 +234,40 @@ function robotMessage(tx, read, delay) {
                }
             }
          }
-         
-         if (msText.innerHTML == '•••') {
-            fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
-            .then(response => response.json())
-            .then(data => {
-               summary = data.extract;
-               msText.innerHTML = summary;
-               if (summary.includes('ممکن است به یکی از موارد زیر اشاره داشته باشد') == true) {
-                  fetch(`https://fa.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${tx}&origin=*`)
-                     .then(response => response.json())
-                     .then(data => {
-                        var results = data.query.search;
-                        msText.innerHTML = results[0].snippet;
-                     })
-               }
-               if (summary !== undefined) {
-                  msText.classList.add('wikipedia')
-               } else {
-                  msText.innerHTML = 'منظورتون رو متوجه نشدم';
-               }
-            }).catch(error => {
-               msText.innerHTML = '<i class="fa fa-wifi-slash fa-2x"></i>';
-            })
+         if (localStorage.getItem('programmerMod') == 'on') {
+            try {
+               msText.innerHTML = eval(tx);
+            } catch (error) {
+               msText.innerHTML = 'Error';
+               setTimeout(() => { errorMessage(error.neme + '<br>' + error.message) }, read + delay + delay)
+            }
+         } else {
+            if (msText.innerHTML == '•••') {
+               fetch(`https://fa.wikipedia.org/api/rest_v1/page/summary/${tx}`)
+                  .then(response => response.json())
+                  .then(data => {
+                     var summary = data.extract;
+                     msText.innerHTML = summary;
+                     if (summary !== undefined) {
+                        msText.classList.add('wikipedia');
+                        if (summary.includes('ممکن است به یکی از موارد زیر اشاره داشته باشد') == true) {
+                           fetch(`https://fa.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${tx}&origin=*`)
+                              .then(response => response.json())
+                              .then(data => {
+                                 var results = data.query.search;
+                                 msText.innerHTML = results[0].snippet;
+                              })
+                        }
+                     } else {
+                        msText.innerHTML = brainnotfound[Math.floor(Math.random() * brainnotfound.length)];
+                     }
+                  })
+            }
          }
       }).catch(error => {
          msText.innerHTML = '<i class="fa fa-wifi-slash fa-2x"></i>';
       })
-   }
-   writing(read,delay);
+   writing(read, delay);
    setTimeout(() => {
       main.appendChild(msDiv);
       msDiv.appendChild(msText);
