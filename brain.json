@@ -197,7 +197,7 @@
       },
       {
          "ms": ["حالتبرنامهنویس"],
-         "re": [],
+         "re": ["programmerMod"],
          "run": "programmerMod"
       },
       {
