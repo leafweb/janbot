@@ -234,7 +234,7 @@ function robotMessage(tx, read, delay) {
                }
             }
          }
-         if (localStorage.getItem('programmerMod') == 'on') {
+         if (localStorage.getItem('programmerMod') == 'on' && run !== undefined) {
             try {
                msText.innerHTML = eval(tx);
             } catch (error) {
