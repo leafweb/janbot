@@ -62,7 +62,7 @@ function start() {
       fetch('https://leafweb.github.io/janbot/brain.json')
          .then(x => x.json())
          .then(y => {
-            startPage.style.animation = 'start 1s 3s both';
+            startPage.style.animation = 'start 1s 5s both';
          }).catch(error => {
             setTimeout(() => {
                name.innerHTML = 'شما آفلاین هستید!';
@@ -74,15 +74,15 @@ function start() {
       version.innerHTML = 'لطفا از اتصال خود مطمئن شوید'
    }
 }
-
-if (localStorage.getItem('programmerMod') == undefined) {
-   localStorage.setItem('programmerMod', 'off');
+function fastStart() {
+   startPage.style.animation = 'start 1s both';
 }
 
 getHistory();
 getTheme();
 scroll();
 start();
+//fastStart()
 window.ononline = () => {
    start();
 }
