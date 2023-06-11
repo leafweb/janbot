@@ -158,7 +158,7 @@
       },
       {
          "ms":["منو","گزینه های بیشتر"],
-         "re":["<div class='menu'>منو<hr><button onclick='meMessage(this.innerHTML)'>حالت روشن</button><hr><button onclick='meMessage(this.innerHTML)'>حالت تیره</button><hr><button onclick='meMessage(this.innerHTML)'>پاک کردن تاریخچه</button><hr><button onclick='meMessage(this.innerHTML)'>حالت برنامه نویس</button><hr><button onclick='meMessage(this.innerHTML)'>درباره جان بات</button></div>"]
+         "re":["<div class='menu'>منو<hr><button onclick='meMessage(this.innerHTML)'>حالت روشن</button><hr><button onclick='meMessage(this.innerHTML)'>حالت تیره</button><hr><button onclick='meMessage(this.innerHTML)'>پاک کردن تاریخچه</button><hr><button onclick='meMessage(this.innerHTML)'>درباره جان بات</button></div>"]
       },
       {
          "ms":["حالتتیره","darkmode"],
@@ -179,11 +179,6 @@
          "ms": ["حالتروز"],
          "re": ["روز میشه و شهر بیدار", "شب بخیر 😂", "روز شدم", "آفتاب طلوع کرد"],
          "run": ["lightMode"]
-      },
-      {
-         "ms":["حالتتمامصفحه","fullscreen"],
-         "re":["تمام صفحه شدم"],
-         "run":"fullscreen"
       },
       {
          "ms":["حذفتاریخچه","تاریخچهحذفشود"],
