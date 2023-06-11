@@ -8,7 +8,7 @@ const startPage = document.querySelector("#start-alert");
 const robotSound = "sound/bell.ogg";
 const meSound = "sound/bubble.wav";
 const version = document.querySelector("#version")
-const v = "2.3";
+const v = "2.4";
 version.innerHTML = "V" + v;
 
 function setHistory() {

@@ -43,8 +43,8 @@ body {
    color: #fff;
 }
 #start-alert>img {
-   width: 50vw;
-   height: 50vw;
+   width: 300px;
+   height: 300px;
    border-radius: var(--rad);
    animation: light 3s infinite;
 }
@@ -57,9 +57,8 @@ header {
    background: var(--header-bg);
    color: var(--header-color);
    width: 100vw;
-   height: var(--header-height);
+   height: 50px;
    box-shadow: var(--header-shodow);
-   border-bottom: var(--header-border);
    overflow: hidden;
    position: fixed;
    top: 0;
@@ -73,8 +72,8 @@ header {
 }
 #profile {
    background: var(--profile-bg);
-   height: var(--profile-height);
-   width: var(--profile-width);
+   height: 40px;
+   width: 40px;
    border-radius: var(--profile-radius);
    display: flex;
    justify-content: center;
@@ -82,8 +81,8 @@ header {
    margin: 0;
 }
 #profile>img {
-   height: var(--profile-height);
-   width: var(--profile-width);
+   height: 35px;
+   width: 35px;
 }
 #status {
    height: var(--header-height);
@@ -101,13 +100,13 @@ main {
    background-attachment: fixed;
    background-position: center;
    position: fixed;
-   top: var(--header-height);
+   top: 50px;
    left: 0;
    width: 100vw;
-   height: calc(100vh - var(--header-height) - var(--footer-height));
+   height: calc(100vh - 50px - 50px);
    font-size: 18px;
    box-sizing: border-box;
-   padding: 0;
+   padding: 0px;
    scroll-behavior: smooth;
    -webkit-overflow-scrolling: touch;
 }
@@ -121,7 +120,7 @@ main {
    color: var(--user-message-color);
    padding: 10px;
    display: inline-block;
-   margin: 8px;
+   margin: 5px;
    position: relative;
    animation: left 0.5s both;
    max-width: 70vw;
@@ -138,7 +137,7 @@ main {
    color: var(--robot-message-color);
    padding: 10px;
    display: inline-block;
-   margin: 8px;
+   margin: 5px;
    position: relative;
    animation: right 0.5s both;
    max-width: 70vw;
@@ -157,41 +156,7 @@ main {
    left: 0;
    background: var(--robot-message-tag-bg);
    color: var(--robot-message-color);
-   padding: 5px;
-   font-weight: bold;
-   font-family: monospace;
-   border-bottom-right-radius: 10px;
-   font-size: 14px;
-   text-transform: uppercase;
-}
-
-.error-div {
-   text-align: left;
-}
-.error-message {
-   border-radius: var(--robot-message-radius);
-   background: var(--robot-message-bg);
-   color: var(--robot-message-color);
    padding: 10px;
-   display: inline-block;
-   margin: 10px;
-   position: relative;
-   animation: right 0.5s both;
-   max-width: 70vw;
-   overflow-wrap: break-word;
-   direction: rtl;
-   padding-top: 30px;
-   text-align: right;
-}
-.error-message::after{
-   content: "error message";
-   display: inline-block;
-   position: absolute;
-   top: 0;
-   left: 0;
-   background: var(--robot-message-tag-bg);
-   color: var(--robot-message-color);
-   padding: 5px;
    font-weight: bold;
    font-family: monospace;
    border-bottom-right-radius: 10px;
@@ -212,7 +177,7 @@ main {
    border-radius: var(--button-radius);
    padding: 10px;
    outline: none;
-   border: var(--button-border)
+   border: none;
 }
 .menu button:active {
    background: var(--send-active-bg);
@@ -232,7 +197,7 @@ footer {
    background: var(--footer-bg);
    overflow: hidden;
    z-index: 1;
-   height: var(--footer-height);
+   height: 50px;
    box-shadow: var(--footer-shodow);
 }
 footer>form {
@@ -240,27 +205,25 @@ footer>form {
    justify-content: space-between;
    align-items: center;
    flex-flow: nowrap row-reverse;
-   height: var(--footer-height);
-   ;
-   padding-inline: 10px;
+   height: 50px;
+   padding-inline: 5px;
 }
 #user-text {
    flex-grow: 7;
-   height: var(--input-height) !important;
-   height: auto;
+   height: 35px !important;
    font-size: 18px;
    padding: 0 10px 0 10px;
    border-radius: var(--input-radius);
    color: var(--input-color);
    background: var(--input-bg);
    box-sizing: border-box;
-   border: var(--input-border);
+   border: none;
    outline: none;
    text-align: auto;
    direction: auto;
 }
 #send {
-   height: var(--send-height) !important;
+   height: 35px!important;
    width: 0px;
    overflow: hidden;
    background: var(--send-bg);
@@ -269,12 +232,12 @@ footer>form {
    box-sizing: border-box;
    border-radius: var(--send-radius);
    padding: 0;
-   border: var(--send-border);
+   border: none;
    outline: none;
 }
 #send.show {
    width: 70px;
-   margin-right: 10px;
+   margin-right: 5px;
 }
 #send:active {
    background: var(--send-active-bg);
@@ -287,10 +250,10 @@ footer>form {
    box-sizing: border-box;
    align-items: center;
    justify-content: space-between;
-   padding: 10px;
+   padding: 5px;
 }
 .flex>* {
-   margin: 10px;
+   margin: 5px;
 }
 .flex-right {
    justify-content: right;
@@ -335,7 +298,8 @@ footer>form {
       opacity: 1;
       left: 0;
    }
-}@keyframes right {
+}
+@keyframes right {
    from {
       opacity: 0;
       right: 100px;

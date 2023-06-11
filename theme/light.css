@@ -13,43 +13,33 @@
 
    --header-bg: linear-gradient(90deg, hsl(150, 100%, 45%), hsl(180, 100%, 45%));
    --header-color: #000;
-   --header-border: none;
-   --header-height: 60px;
    --header-shodow: 0px 0px 20px #0009;
 
    --profile-bg: #000;
    --profile-width: 50px;
-   --profile-height: 50px;
    --profile-radius: var(--radius);
 
    --robot-message-bg: linear-gradient(45deg, hsl(150, 100%, 45%), hsl(180, 100%, 45%));
    --robot-message-color: #000;
    --robot-message-tag-bg: #fff5;
-   --robot-message-border: none;
    --robot-message-radius: 0 var(--radius) var(--radius) var(--radius);
 
    --user-message-bg: #fff;
    --user-message-color: #000;
-   --user-message-border: none;
    --user-message-radius: var(--radius) 0 var(--radius) var(--radius);
 
    --footer-bg: linear-gradient(90deg, hsl(150, 100%, 45%), hsl(180, 100%, 45%));
-   --footer-border: none;
-   --footer-height: 60px;
    --footer-shodow: none;
 
    --input-bg: #fff7;
    --input-color: #000;
    --input-radius: var(--radius);
-   --input-height: 40px;
 
    --send-bg: #fff9;
    --send-active-bg: var(--primary-dark);
    --send-color: #000;
    --send-active-color: #fff;
    --send-radius: var(--radius);
-   --send-border: none;
-   --send-height: 40px;
    
    --hr-color: #fff7;
    --hr-radius: 5px;
@@ -59,6 +49,4 @@
    --button-color: #000;
    --button-active-color: #fff;
    --button-radius: var(--radius);
-   --button-border: none;
-   --button-height: 40px;
 }

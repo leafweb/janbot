@@ -13,43 +13,33 @@
 
    --header-bg: linear-gradient(90deg, hsl(180, 100%, 20%), hsl(150, 100%, 20%));
    --header-color: #fff;
-   --header-border: none;
-   --header-height: 60px;
    --header-shodow: 0px 0px 20px #0009;
 
    --profile-bg: #000;
    --profile-width: 50px;
-   --profile-height: 50px;
    --profile-radius: var(--radius);
 
    --robot-message-bg: linear-gradient(45deg, hsl(210, 100%, 20%), hsl(180, 100%, 20%));
    --robot-message-color: #fff;
    --robot-message-tag-bg: #0005;
-   --robot-message-border: none;
    --robot-message-radius: 0 var(--radius) var(--radius) var(--radius);
 
    --user-message-bg: linear-gradient(45deg, hsl(120, 100%, 20%), hsl(150, 100%, 30%));
    --user-message-color: #fff;
-   --user-message-border: none;
    --user-message-radius: var(--radius) 0 var(--radius) var(--radius);
 
    --footer-bg: linear-gradient(90deg, hsl(180, 100%, 20%), hsl(150, 100%, 20%));
-   --footer-border: none;
-   --footer-height: 60px;
    --footer-shodow: none;
 
    --input-bg: #0007;
    --input-color: #fff;
    --input-radius: var(--radius);
-   --input-height: 40px;
 
    --send-bg: #0007;
    --send-active-bg: #000;
    --send-color: #fff;
    --send-active-color: #fff;
    --send-radius: var(--radius);
-   --send-border: none;
-   --send-height: 40px;
    
    --hr-color: #0007;
    --hr-radius: 5px;
@@ -59,6 +49,4 @@
    --button-color: #fff;
    --button-active-color: #fff;
    --button-radius: var(--radius);
-   --button-border: none;
-   --button-height: 40px;
 }
